@@ -125,7 +125,7 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -151,3 +151,4 @@ MonoBehaviour:
   _acceleration: 5
   _maxSpeed: 20
   _jumpPower: 10
+  _tailSwipeHitbox: {fileID: 0}

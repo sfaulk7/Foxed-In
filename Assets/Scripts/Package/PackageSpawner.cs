@@ -11,6 +11,10 @@ public class PackageSpawner : MonoBehaviour
     [SerializeField]
     float _startingSpawnRate = 5.0f;
 
+    int GridWidth = 10;
+    int GridHeight = 10;
+    int PackageSize = 5;
+
     private bool _spawningActive;
 
     // Start is called before the first frame update
@@ -27,11 +31,14 @@ public class PackageSpawner : MonoBehaviour
 
     void SpawnTarget()
     {
-        float randomX = Random.Range(0, 11);
-        float randomPositionX = randomX * 5;
-        Vector3 randomPosition = new Vector3(randomPositionX, 55, 5);
+        _spawningActive = true;
+
+        float randomX = Random.Range(0, GridWidth + 1);
+        float randomPositionX = randomX * PackageSize;
+        Vector3 randomPosition = new Vector3(randomPositionX, GridHeight * PackageSize, 5);
 
         GameObject Package = Instantiate(_package, randomPosition, Quaternion.identity);
+        Package.transform.localScale = new Vector3(PackageSize, PackageSize, 10);
 
         Invoke(nameof(SpawnTarget), _startingSpawnRate);
     }
