@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1075991433947529295}
   - component: {fileID: 2806849578133606002}
   m_Layer: 0
-  m_Name: Package
+  m_Name: BrownPackage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,6 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e24e6d5ec4dab24cb87eab308c0182f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _packagePointWorth: 10
+  _packageMultiplierWorth: 2
   WhenNoBoxes: {r: 0, g: 0, b: 0, a: 0}
   WhenBoxOnLeft: {r: 0.9866247, g: 0, b: 1, a: 0}
   WhenBoxOnRight: {r: 0, g: 0.99010324, b: 1, a: 0}

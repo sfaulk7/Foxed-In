@@ -9,6 +9,12 @@ public class PackageCollisionBehavior : MonoBehaviour
     private bool _packageToLeft = false;
 
     [SerializeField]
+    int _packagePointWorth;
+
+    [SerializeField]
+    int _packageMultiplierWorth;
+
+    [SerializeField]
     private Color WhenNoBoxes;
 
     [SerializeField]
@@ -24,6 +30,15 @@ public class PackageCollisionBehavior : MonoBehaviour
     void Start()
     {
         
+    }
+
+    public int PackagePointWorth()
+    {
+        return _packagePointWorth;
+    }
+    public int PackageMultiplierWorth()
+    {
+        return _packageMultiplierWorth;
     }
 
     // Update is called once per frame
