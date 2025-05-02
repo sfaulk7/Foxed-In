@@ -17,6 +17,29 @@ public class PackageFallingBehavior : MonoBehaviour
         PackageRigidBody = GetComponent<Rigidbody>();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Vector3 CollidedsPosition = collision.gameObject.transform.position;
+        if (CollidedsPosition.y < transform.position.y && CollidedsPosition.x == transform.position.x)
+        {
+            if (collision.gameObject.TryGetComponent(out PackageFallingBehavior PackageFallingBehavior))
+            {
+                _isFalling = false;
+            }
+        }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        Vector3 CollidedsPosition = collision.gameObject.transform.position;
+        if (CollidedsPosition.y < transform.position.y && CollidedsPosition.x == transform.position.x)
+        {
+            if (collision.gameObject.TryGetComponent(out PackageFallingBehavior PackageFallingBehavior))
+            {
+                _isFalling = false;
+            }
+        }
+    }
+
     private void Update()
     {
         //Stop movement when no longer falling

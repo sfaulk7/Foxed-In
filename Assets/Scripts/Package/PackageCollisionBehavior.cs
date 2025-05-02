@@ -15,6 +15,10 @@ public class PackageCollisionBehavior : MonoBehaviour
     int _packageMultiplierWorth;
 
     [SerializeField]
+    int _packageHP = 5;
+    private int _packageHPMaximum;
+
+    [SerializeField]
     private Color WhenNoBoxes;
 
     [SerializeField]
@@ -26,10 +30,14 @@ public class PackageCollisionBehavior : MonoBehaviour
     [SerializeField]
     private Color WhenBoxOnBoth;
 
+    bool _wasDestroyed;
+    bool _wasCleared;
+    bool _scored;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _packageHPMaximum = _packageHP;
     }
 
     public int PackagePointWorth()
@@ -40,10 +48,56 @@ public class PackageCollisionBehavior : MonoBehaviour
     {
         return _packageMultiplierWorth;
     }
+    public bool WasDestroyed()
+    {
+        return _wasDestroyed;
+    }
+    public bool WasCleared()
+    {
+        return _wasCleared;
+    }
+    public bool HasBeenScored()
+    {
+        return _scored;
+    }
+    public void SetScored(bool wasScored)
+    {
+        _scored = wasScored;
+    }
+
 
     // Update is called once per frame
     void Update()
     {
+        //If package is not in scene
+        if (!transform.gameObject.activeInHierarchy)
+        {
+            _packageHP = _packageHPMaximum;
+            if (_wasDestroyed == false)
+            {
+                _wasCleared = true;
+            }
+        }
+
+        //If package is in scene
+        if (transform.gameObject.activeInHierarchy)
+        {
+            //Set _wasDestryed and _wasCleared to false
+            _wasDestroyed = false;
+            _wasCleared = false;
+            _scored = false;
+        }
+
+        //If the boxes HP ever hits 0
+        if (_packageHP <= 0)
+        {
+            _wasDestroyed = true;
+
+            //Send package back to pool
+            transform.gameObject.SetActive(false);
+            _packageHP = _packageHPMaximum;
+        }
+
         //Left Cast
         if (Physics.Raycast(transform.position, new Vector3(-1, 0, 0), 5))
         {
@@ -62,6 +116,7 @@ public class PackageCollisionBehavior : MonoBehaviour
         {
             _packageToRight = false;
         }
+        
 
         #region "DEBUGGING FOR PACKAGE ON PACKAGE COLLISION"
         ////If package on the left
@@ -87,13 +142,14 @@ public class PackageCollisionBehavior : MonoBehaviour
         #endregion
     }
 
-
-
     private void OnCollisionEnter(Collision collision)
     {
         //If colliding with the tailswipe hitbox
         if (collision.gameObject.TryGetComponent(out TailSwipeClearer TailSwipeClearer))
         {
+            //Subtract health
+            _packageHP--;
+
             //Hitting to the right
             if (collision.gameObject.transform.position.x < transform.position.x)
             {

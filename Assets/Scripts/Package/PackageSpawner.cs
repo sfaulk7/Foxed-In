@@ -20,8 +20,11 @@ public class PackageSpawner : MonoBehaviour
 
     GameObject[] _packages;
 
+    [SerializeField]
     private int _gridWidth = 10;
+    [SerializeField]
     private int _gridHeight = 10;
+    [SerializeField]
     private int _packageSize = 5;
 
     private bool _spawningActive;
@@ -55,7 +58,7 @@ public class PackageSpawner : MonoBehaviour
     {
         _spawningActive = true;
 
-        float randomX = Random.Range(0, _gridWidth - 1);
+        float randomX = Random.Range(0, _gridWidth);
         float randomPositionX = randomX * _packageSize;
         Vector3 randomPosition = new Vector3(randomPositionX, _gridHeight * _packageSize, 5);
 
@@ -93,9 +96,10 @@ public class PackageSpawner : MonoBehaviour
             GameObject temp = Instantiate(boxToSpawn);
             temp.SetActive(false);
             ObjectPool.SharedInstance.AddObjectToPool(boxToSpawn);
+            Package = temp;
         }
 
-        Package = ObjectPool.SharedInstance.ActivateAnObject(boxChoice);
+        //Package = ObjectPool.SharedInstance.ActivateAnObject(boxChoice);
         Package.transform.position = randomPosition;
         Package.transform.localScale = new Vector3(_packageSize, _packageSize, 10);
 
